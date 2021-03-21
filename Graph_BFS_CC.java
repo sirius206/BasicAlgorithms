@@ -29,3 +29,30 @@ class Solution {
         return 1;
     }
 }
+
+
+//BFS, 判断从一点出发能否到其它点
+//valid tree
+public boolean validTree(int n, int[][] edges) {
+    if (n == 0) return false;
+    if (edges.length != n - 1) return false;
+
+    Map<Integer, Set<Integer>> graph = initializeGraph(n, edges);
+    Queue<Integer> queue = new LinkedList<>();
+    Set<Integer> nodeSet = new HashSet<>();
+
+    queue.offer(0);
+    nodeSet.add(0);
+
+    while (!queue.isEmpty()){
+        int node = queue.poll();
+
+        for (int neighbor : graph.get(node)) {
+            if (nodeSet.contains(neighbor)) continue;
+            queue.offer(neighbor);
+            nodeSet.add(neighbor);
+        }
+    }
+
+    return nodeSet.size() == n;
+}
