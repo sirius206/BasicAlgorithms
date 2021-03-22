@@ -1,4 +1,4 @@
-// BFS
+// BFS Time O(m + n), Space O(n)
 // sorting of a graph using indegrees 
 import java.util.*; 
   
