@@ -1,4 +1,4 @@
-// BFS Time O(m + n), Space O(n)
+// BFS Time O(m + n), Space O(m + n) for adj List
 // sorting of a graph using indegrees 
 import java.util.*; 
   
