@@ -1,15 +1,15 @@
 # DP
-def max_subarray(nums):
+def func(nums):
     if len(nums) == 0:
         return 0
     sum = nums[0]
-    dp = []
-    dp.append(nums[0])
+    dp = [0] * len(nums)
+    dp[0] = nums[0]
     for i in range(1, len(nums)):
         if dp[i - 1] < 0:
-            dp.append(nums[i])
+            dp[i] = nums[i]
         else:
-            dp.append(dp[i - 1] + nums[i])
+            dp[i] = dp[i - 1] + nums[i]
         sum = max(dp[i], sum)
     return sum    
   
