@@ -24,7 +24,7 @@ public class QuickUnionUF
 //  }
     public int find(int x) {
         if (x == parent[x])  return x;
-        return parent[x] = find(parent[x]); 
+        return parent[x] = find(parent[x]);      //path compression
     }
   
   
