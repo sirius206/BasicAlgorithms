@@ -1,3 +1,63 @@
+// 1. 1 pass
+/*
+Java solution. Time: O(N), Space: O(N).
+The idea of the solution is similar with building Prefix Sum. We build an array arr in which arr[i] is the number of items in compartment from in s[0...i].
+Take "*|*|**|*" as example, the array will be [0, 0, 0, 1, 1, 1, 3, 3]. For better visualization,
+[*, |, *, |, *, *, |, *]
+[0, 0, 0, 1, 1, 1, 3, 3]
+
+Before the first '|' is found, arr[i] is always 0 because there will not be any valid compartment. (in this case, i = 0)
+when i = 1 we found the first pipe and we can start counting the item for the current comparment.
+when i = 2, currCompartment = 1 but accSum is still 0 because we didn't find the pipe that close the current compartment yet, so arr[2] = 0
+when i = 3, the closed pipe is found so that we can do accSum += currCompartment to add all the items for the current compartment.
+...
+
+Once we built the array, the number of items in s[i..j] will be arr[j] - arr[i], which is the number of valid items in [0...j] minus the one in [0...i] (i <= j).
+*/
+
+public class Solution {
+    public static void main(String ...args) {
+        List<Integer> ans = Solution.numberOfItems("|**|*|*", new int[]{1, 1}, new int[]{5, 6});
+//        List<Integer> ans = Solution.numberOfItems("*|**|*|*", new int[]{2, 2}, new int[]{6, 7});
+//        List<Integer> ans = Solution.numberOfItems("*******", new int[]{1, 2}, new int[]{6, 6});
+//        List<Integer> ans = Solution.numberOfItems("*|*|**|*", new int[]{1, 2}, new int[]{4, 8});
+        for(int i=0; i<ans.size(); i++) {
+            System.out.print(ans.get(i));
+            System.out.print(" ");
+        }
+    }
+
+    public static List<Integer> numberOfItems(String s, int[] startIndices, int[] endIndices) {
+        int []cnt = new int[s.length()];
+
+        int accSum = 0;
+        int currCompartment = 0;
+        boolean metFirstBar = false;
+        for(int i=0; i<s.length(); i++) {
+             if(s.charAt(i) == '|') {
+                 metFirstBar = true;
+                 accSum += currCompartment;
+                 currCompartment = 0;
+            } else if(metFirstBar) {
+                currCompartment++;
+            }
+             cnt[i] = accSum;
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        for(int i=0; i<startIndices.length; i++) {
+            int start = startIndices[i];
+            int end = endIndices[i];
+
+            ans.add(cnt[end - 1] - cnt[start - 1]);
+        }
+
+        return ans;
+    }
+
+}
+
+// 2 passes front and end
 /*
 Given a string s consisting of items as "*" and closed compartments as an open and close "|", an array of starting indices startIndices, and an array of ending indices endIndices, determine the number of items in closed compartments within the substring between the two indices, inclusive.
 
