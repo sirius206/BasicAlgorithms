@@ -1,0 +1,13 @@
+        PriorityQueue<node> heap = new PriorityQueue<node>(new Comparator<node>(){    //capital C
+             @Override    //capital O
+            public int compare(node o1, node o2){
+                if(o1.dist == o2.dist){
+                    if(o1.worker == o2.worker){
+                        return o1.bike - o2.bike;
+                    }
+                    return o1.worker - o2.worker;
+                }else{
+                    return o1.dist - o2.dist;
+                }
+            }
+        });
