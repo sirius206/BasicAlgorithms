@@ -100,3 +100,5 @@ class Main {
         g.topologicalSort(); 
     } 
 } 
+
+//2. DFS post # largest to smallest
