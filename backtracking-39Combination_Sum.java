@@ -11,6 +11,7 @@ class Solution {
     private void helper(int remain, int start, List<Integer> current, 
                         int[] candidates, List<List<Integer>> res){
         if (remain == 0) {
+            // deep copy, important not to use res.add(current)
             res.add(new ArrayList<Integer>(current));
         }
         int len = candidates.length;
