@@ -19,8 +19,8 @@ class Solution:
  
         result = []
         min_heap = []
- 
-        for arr in arrs:
+# ???? 全 push 进heap了 不对吧？
+        for arr in arrs:
             i = 0
             while i < len(arr):
                 heapq.heappush(min_heap, arr[i])
