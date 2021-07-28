@@ -22,23 +22,20 @@ Starts with is identical to search except it doesn't matter if the Node I left o
 i always return true;
 
 */
-//1. simpler
 class TrieNode {
     public char val;
     public boolean isEnd;
-    public TrieNode[] children = new TrieNode[26];
-    public TrieNode(){}
+    public TrieNode[] children;
     public TrieNode(char c){
-        TrieNode node = new TrieNode();
-        node.val = c;
+        this.val = c;
+        this.children = new TrieNode[26];
     }
 }
 class Trie {
     private TrieNode root;
     /** Initialize your data structure here. */
     public Trie() {
-        root = new TrieNode();
-        root.val = ' ';
+        this.root = new TrieNode(' ');
     }
     
     /** Inserts a word into the trie. */
@@ -76,6 +73,7 @@ class Trie {
         return true;        
     }
 }
+
 
 // answer, more class functions
 class TrieNode {
