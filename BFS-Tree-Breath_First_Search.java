@@ -35,6 +35,7 @@ public List<List<Integer>> levelOrder(TreeNode root) {
       if (node.right != null) {
         queue.offer(node.right);
     }  
+      res.add(currentLevel);
   }
     return res;
 }
