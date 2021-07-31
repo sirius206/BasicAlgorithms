@@ -28,60 +28,60 @@ class Solution {
 //2. Subsets : https://leetcode.com/problems/subsets/
 
 public List<List<Integer>> subsets(int[] nums) {
-    List<List<Integer>> list = new ArrayList<>();
+    List<List<Integer>> res = new ArrayList<>();
     Arrays.sort(nums);
-    backtrack(list, new ArrayList<>(), nums, 0);
-    return list;
+    helper(res, new ArrayList<>(), nums, 0);
+    return res;
 }
 
-private void backtrack(List<List<Integer>> list , List<Integer> tempList, int [] nums, int start){
-    list.add(new ArrayList<>(tempList));
+private void helper(List<List<Integer>> res , List<Integer> current, int [] nums, int start){
+    res.add(new ArrayList<>(current));
     for(int i = start; i < nums.length; i++){
-        tempList.add(nums[i]);
-        backtrack(list, tempList, nums, i + 1);
-        tempList.remove(tempList.size() - 1);
+        current.add(nums[i]);
+        helper(res, current, nums, i + 1);
+        current.remove(current.size() - 1);
     }
 }
 
 //1b. Subsets II (contains duplicates) : https://leetcode.com/problems/subsets-ii/
 
 public List<List<Integer>> subsetsWithDup(int[] nums) {
-    List<List<Integer>> list = new ArrayList<>();
+    List<List<Integer>> res = new ArrayList<>();
     Arrays.sort(nums);
-    backtrack(list, new ArrayList<>(), nums, 0);
-    return list;
+    helper(res, new ArrayList<>(), nums, 0);
+    return res;
 }
 
-private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int start){
-    list.add(new ArrayList<>(tempList));
+private void backtrack(List<List<Integer>> res, List<Integer> current, int [] nums, int start){
+    res.add(new ArrayList<>(current));
     for(int i = start; i < nums.length; i++){
         if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
-        tempList.add(nums[i]);
-        backtrack(list, tempList, nums, i + 1);
-        tempList.remove(tempList.size() - 1);
+        current.add(nums[i]);
+        helper(res current, nums, i + 1);
+        current.remove(current.size() - 1);
     }
 } 
 
 
 //3. Permutations : https://leetcode.com/problems/permutations/
-//Time O(sum Cnk, k = 1... n), n! <= Time <= n*n!
-//Space O(n * n!) because n! solutions, each takes n
+// Time O(n * n!) n! permutations, Notice that at the end when adding the list to the result list, it takes O(n).
+// Space O(n * n!) because n! solutions, each takes n
 public List<List<Integer>> permute(int[] nums) {
-   List<List<Integer>> list = new ArrayList<>();
+   List<List<Integer>> res = new ArrayList<>();
    // Arrays.sort(nums); // not necessary
-   backtrack(list, new ArrayList<>(), nums);
-   return list;
+   helper(res, new ArrayList<>(), nums);
+   return res;
 }
 
-private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums){
-   if(tempList.size() == nums.length){
-      list.add(new ArrayList<>(tempList));
+private void helper(List<List<Integer>> res, List<Integer> current, int [] nums){
+   if(current.size() == nums.length){
+      res.add(new ArrayList<>(current));
    } else{
       for(int i = 0; i < nums.length; i++){ 
-         if(tempList.contains(nums[i])) continue; // element already exists, skip
-         tempList.add(nums[i]);
-         backtrack(list, tempList, nums);
-         tempList.remove(tempList.size() - 1);
+         if(current.contains(nums[i])) continue; // element already exists, skip
+         current.add(nums[i]);
+         helper(res, current, nums);
+         current.remove(current.size() - 1);
       }
    }
 } 
