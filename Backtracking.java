@@ -64,8 +64,8 @@ private void backtrack(List<List<Integer>> res, List<Integer> current, int [] nu
 
 
 //3. Permutations : https://leetcode.com/problems/permutations/
-// Time O(n * n!) n! permutations, Notice that at the end when adding the list to the result list, it takes O(n).
-// Space O(n * n!) because n! solutions, each takes n
+// Time: O(n * n!) n! permutations, Notice that at the end when adding the list to the result list, it takes O(n).
+// Space: For solution: O(n * n!) because n! solutions, each takes n, no extra
 public List<List<Integer>> permute(int[] nums) {
    List<List<Integer>> res = new ArrayList<>();
    // Arrays.sort(nums); // not necessary
@@ -89,27 +89,27 @@ private void helper(List<List<Integer>> res, List<Integer> current, int [] nums)
 
 //4 Permutations II (contains duplicates) : https://leetcode.com/problems/permutations-ii/
 
-public List<List<Integer>> permuteUnique(int[] nums) {
-    List<List<Integer>> list = new ArrayList<>();
-    Arrays.sort(nums);
-    backtrack(list, new ArrayList<>(), nums, new boolean[nums.length]);
-    return list;
-}
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        helper(res, new ArrayList<>(), nums, new boolean[nums.length]);
+        return res;
+    }
 
-private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, boolean [] used){
-    if(tempList.size() == nums.length){
-        list.add(new ArrayList<>(tempList));
-    } else{
-        for(int i = 0; i < nums.length; i++){
-            if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue;
-            used[i] = true; 
-            tempList.add(nums[i]);
-            backtrack(list, tempList, nums, used);
-            used[i] = false; 
-            tempList.remove(tempList.size() - 1);
+    private void helper(List<List<Integer>> res, List<Integer> current, int [] nums, boolean [] used){
+        if(current.size() == nums.length){
+            res.add(new ArrayList<>(current));
+        } else{
+            for(int i = 0; i < nums.length; i++){
+                if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue;
+                used[i] = true; 
+                current.add(nums[i]);
+                helper(res, current, nums, used);
+                used[i] = false; 
+                current.remove(current.size() - 1);
+            }
         }
     }
-}
 
 // 5 Combination Sum : https://leetcode.com/problems/combination-sum/
 
