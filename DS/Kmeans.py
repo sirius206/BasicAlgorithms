@@ -5,21 +5,32 @@ Repeat until converged
 E-Step: assign points to the nearest cluster center
 M-Step: set the cluster centers to the mean
 
+Pseudocode:
+1. Select K initial centroids
+REPEAT:
+    2. Form K clusters by assigning each observation to its nearest centroid's cluster
+    3. Recompute centroids for each cluster
+UNTIL centroids do not change
+
 https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html
 
 Elbow method: plot number of clusters V.S. percentage of variance explained (the ratio of between-group variance to the total variance)
+              plot different values of k and calculate the Sum of squared error for each cluster
 
 silhouette analysis: study the separation distance between the resulting clusters
 Silhouette coefficients (as these values are referred to as) near +1 indicate that the sample is far away from the neighboring clusters. 
 A value of 0 indicates that the sample is on or very close to the decision boundary between two neighboring clusters and 
 negative values indicate that those samples might have been assigned to the wrong cluster.
 Also from the thickness of the silhouette plot the cluster size can be visualized
+~~~~~~~~~
+k-means++ is an algorithm for choosing the initial values (or "seeds") for the k-means clustering algorithm. Spread out the k initial cluster centers.
 
-k-means++ is an algorithm for choosing the initial values (or "seeds") for the k-means clustering algorithm. Spread out the k initial cluster centers
- the first cluster center is chosen uniformly at random from the data points that are being clustered, 
- after which each subsequent cluster center is chosen from the remaining data points with probability proportional to 
- its squared distance from the point's closest existing cluster center
- 
+1.Choose one center at random among the data points.
+2. For each data point x not chosen yet, compute D(x), the distance between x and the nearest center that has already been chosen.
+3. Choose one new data point at random as a new center, using a weighted probability distribution where a point x is chosen with probability proportional to D(x)2.
+Repeat Steps 2 and 3 until k centers have been chosen.
+Now that the initial centers have been chosen, proceed using standard k-means clustering.
+~~~~~~~~~ 
 Perform feature scaling first before Kmeans
 """
 
