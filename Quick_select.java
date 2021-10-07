@@ -27,14 +27,6 @@ import java.util.Random;
  
 class Main
 {
-    public static int rand(int min, int max)
-    {
-        if (min > max || (max - min + 1 > Integer.MAX_VALUE)) {
-            throw new IllegalArgumentException("Invalid range");
-        }
-        return new Random().nextInt(max - min + 1) + min;
-    }
- 
     public static void swap(int[] A, int i, int j)
     {
         int temp = A[i];
@@ -60,8 +52,7 @@ class Main
         // is incremented, and that element would be placed before the pivot.
         for (int i = left; i < right; i++)
         {
-            if (A[i] <= pivot)
-            {
+            if (A[i] <= pivot) {
                 swap(A, i, pIndex);
                 pIndex++;
             }
@@ -81,19 +72,15 @@ class Main
     public static int quickSelect(int[] A, int left, int right, int k)
     {
         // If the array contains only one element, return that element
-        if (left == right) {
-            return A[left];
-        }
+        if (left == right) return A[left];
  
         // select a `pIndex` between left and right
-        int pIndex = rand(left, right);
+        int pIndex = new Random().nextInt(right - left + 1) + left;
  
         pIndex = partition(A, left, right, pIndex);
  
         // The pivot is in its final sorted position
-        if (k == pIndex) {
-            return A[k];
-        }
+        if (k == pIndex) return A[k];
  
         // if `k` is less than the pivot index
         else if (k < pIndex) {
